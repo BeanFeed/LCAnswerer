@@ -38,7 +38,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, senderResponse) 
             senderResponse({success : false, message: "questions not found"});
         } else {
             for(const element of q) {
-                if (element.questionText == message.question) senderResponse({success : true, message: element.choices[element.correctAnswerIndex]});
+                if(element.questionText == message.question) {
+                    senderResponse({success : true, message: element.questionType == 'FB' ? element.answers[0] : element.choices[element.correctAnswerIndex]});
+                }    //else senderResponse({success : true, message: element.testTerm});
             }
         }
         
